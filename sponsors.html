@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Web3 Cabinet — Спонсоры</title>
+  <link rel="icon" href="./assets/logo.png" />
+  <link rel="stylesheet" href="./assets/styles.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.min.js"></script>
+  <script defer src="./js/index.js"></script>
+</head>
+<body>
+  <div class="bg-body"></div>
+
+  <div class="b-app">
+    <header class="b-header">
+      <div class="container">
+        <div class="row row-header">
+          <div class="col col-left">
+            <div class="user-id">
+              <i class="fa fa-id-card"></i>
+              <span>Ваш ID в системе: <strong id="userId">—</strong></span>
+            </div>
+          </div>
+          <div class="col col-right">
+            <div class="wallet">
+              <i class="fa fa-ethereum"></i>
+              <span id="walletAddress" class="badge">Кошелёк не подключен</span>
+              <span id="networkBadge" class="badge warn"><i class="fa fa-satellite-dish"></i><span>нет сети</span></span>
+              <span class="badge ok"><i class="fa fa-coins"></i><span id="balanceValue">— ETH</span></span>
+              <button id="connectBtn" class="btn btn-primary btn-inline">Connect</button>
+            </div>
+          </div>
+        </div>
+        <nav class="nav">
+          <a href="./index.html">Главная</a>
+          <a href="./guide.html">Руководство</a>
+          <a href="./tutorial.html">Туториал</a>
+          <a href="./tutorial_v2.html">Туториал v2</a>
+          <a href="./sponsors.html" class="active">Спонсоры</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="b-main">
+      <div class="container">
+        <h1>Партнёры и спонсоры</h1>
+        <div class="logo-grid">
+          <a class="logo-tile" href="#" target="_blank" rel="noopener"><span>Partner A</span></a>
+          <a class="logo-tile" href="#" target="_blank" rel="noopener"><span>Partner B</span></a>
+          <a class="logo-tile" href="#" target="_blank" rel="noopener"><span>Partner C</span></a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="b-footer">
+      <div class="container">
+        <p>© 2025 Web3 Cabinet Demo.</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

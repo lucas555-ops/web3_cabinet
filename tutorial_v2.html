@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Web3 Cabinet — Туториал v2</title>
+  <link rel="icon" href="./assets/logo.png" />
+  <link rel="stylesheet" href="./assets/styles.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.min.js"></script>
+  <script defer src="./js/index.js"></script>
+</head>
+<body>
+  <div class="bg-body"></div>
+
+  <div class="b-app">
+    <header class="b-header">
+      <div class="container">
+        <div class="row row-header">
+          <div class="col col-left">
+            <div class="user-id">
+              <i class="fa fa-id-card"></i>
+              <span>Ваш ID в системе: <strong id="userId">—</strong></span>
+            </div>
+          </div>
+          <div class="col col-right">
+            <div class="wallet">
+              <i class="fa fa-ethereum"></i>
+              <span id="walletAddress" class="badge">Кошелёк не подключен</span>
+              <span id="networkBadge" class="badge warn"><i class="fa fa-satellite-dish"></i><span>нет сети</span></span>
+              <span class="badge ok"><i class="fa fa-coins"></i><span id="balanceValue">— ETH</span></span>
+              <button id="connectBtn" class="btn btn-primary btn-inline">Connect</button>
+            </div>
+          </div>
+        </div>
+        <nav class="nav">
+          <a href="./index.html">Главная</a>
+          <a href="./guide.html">Руководство</a>
+          <a href="./tutorial.html">Туториал</a>
+          <a href="./tutorial_v2.html" class="active">Туториал v2</a>
+          <a href="./sponsors.html">Спонсоры</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="b-main">
+      <div class="container narrow">
+        <h1>Туториал v2</h1>
+        <p>Эта версия страницы может использоваться для продвинутых шагов: подпись сообщения, показ баланса, выбор сети и т.д.</p>
+        <div class="actions">
+          <button class="btn" id="btnSign">Подписать сообщение</button>
+          <button class="btn" id="btnBalance">Показать баланс</button>
+          <div id="out" class="out"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="b-footer">
+      <div class="container">
+        <p>© 2025 Web3 Cabinet Demo.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function(){
+      const out = document.getElementById('out');
+      const btnSign = document.getElementById('btnSign');
+      const btnBal = document.getElementById('btnBalance');
+      const log = (t) => { if(out){ out.style.display='block'; out.textContent = String(t); } };
+
+      async function ensureProvider() {
+        if (!window.ethereum) throw new Error('Нет Ethereum провайдера (установите MetaMask).');
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        return { provider, signer };
+      }
+
+      btnSign?.addEventListener('click', async () => {
+        try{
+          const { signer } = await ensureProvider();
+          const msg = 'Confirm ownership at ' + new Date().toISOString();
+          const sig = await signer.signMessage(msg);
+          log('Signature: ' + sig);
+        }catch(e){ log(e.message || e); }
+      });
+
+      btnBal?.addEventListener('click', async () => {
+        try{
+          const { provider, signer } = await ensureProvider();
+          const addr = await signer.getAddress();
+          const balWei = await provider.getBalance(addr);
+          const balEth = ethers.formatEther(balWei);
+          log('Balance: ' + balEth + ' ETH');
+        }catch(e){ log(e.message || e); }
+      });
+    })();
+  </script>
+</body>
+</html>
