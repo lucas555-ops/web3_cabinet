@@ -1,104 +1,74 @@
 <!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Web3 Cabinet — Главная</title>
-  <meta name="description" content="Non-custodial on-chain vault demo. Connect your wallet and explore." />
-  <meta property="og:title" content="Web3 Cabinet — Demo" />
-  <meta property="og:description" content="Connect wallet, view your demo ID and address. Minimal, secure, on-chain." />
-  <meta property="og:image" content="./assets/bg-body_.png" />
-  <meta property="og:type" content="website" />
-
-  <link rel="icon" href="./assets/logo.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="./assets/styles.css" />
-
-  <!-- Ethers (CDN) + App JS -->
-  <script defer src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.min.js"></script>
-  <script defer src="./js/index.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Web3 Cabinet — Главная</title>
+<link rel="icon" href="./assets/logo.png" />
+<link rel="stylesheet" href="./assets/styles.css" />
+<script defer src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.min.js"></script>
+<script defer src="./js/index.js"></script>
 </head>
 <body>
-  <div class="bg-body"></div>
+<div class="bg-body"></div>
+<div class="b-app">
+<header class="b-header">
+<div class="container">
+<div class="row row-header">
+<div class="user-id"><i class="fa fa-id-card"></i> <span>Ваш ID: <strong id="userId">—</strong></span></div>
+<div class="wallet toolbar">
+<span id="walletAddress" class="badge">Кошелёк не подключен</span>
+<span id="networkBadge" class="badge warn"><i class="fa fa-satellite-dish"></i><span>нет сети</span></span>
+<span class="badge ok"><i class="fa fa-coins"></i><span id="balanceValue">— ETH</span></span>
+<button id="connectBtn" class="btn btn-inline">Connect</button>
+<button id="btnCopy" class="btn btn-inline" title="Копировать адрес"><i class="fa fa-copy"></i></button>
+<span class="sp"></span>
+<button data-chain="0x1" class="btn btn-inline net">Mainnet</button>
+<button data-chain="0x2105" class="btn btn-inline net">Base</button>
+<button data-chain="0xa4b1" class="btn btn-inline net">Arbitrum</button>
+<button data-chain="0x89" class="btn btn-inline net">Polygon</button>
+<button data-chain="0xa" class="btn btn-inline net">Optimism</button>
+</div>
+</div>
+<nav class="nav">
+<a href="./index.html" class="active">Главная</a>
+<a href="./guide.html">Руководство</a>
+<a href="./tutorial.html">Туториал</a>
+<a href="./tutorial_v2.html">Туториал v2</a>
+<a href="./sponsors.html">Спонсоры</a>
+</nav>
+</div>
+</header>
 
-  <div class="b-app">
-    <header class="b-header">
-      <div class="container">
-        <div class="row row-header">
-          <div class="col col-left">
-            <div class="user-id">
-              <i class="fa fa-id-card"></i>
-              <span>Ваш ID в системе: <strong id="userId">—</strong></span>
-            </div>
-          </div>
-          <div class="col col-right">
-            <div class="wallet">
-              <i class="fa fa-ethereum"></i>
-              <span id="walletAddress" class="badge">Кошелёк не подключен</span>
-              <span id="networkBadge" class="badge warn"><i class="fa fa-satellite-dish"></i><span>нет сети</span></span>
-              <span class="badge ok"><i class="fa fa-coins"></i><span id="balanceValue">— ETH</span></span>
-              <button id="connectBtn" class="btn btn-primary btn-inline">Connect</button>
-              <button id="btnCopy" class="btn btn-inline" title="Скопировать адрес"><i class="fa fa-copy"></i></button>
-              <button id="btnSwitchMainnet" class="btn btn-inline" title="Переключить сеть на Ethereum Mainnet">Mainnet</button>
-            </div>
-          </div>
-        </div>
-        <nav class="nav">
-          <a href="./index.html" class="active">Главная</a>
-          <a href="./guide.html">Руководство</a>
-          <a href="./tutorial.html">Туториал</a>
-          <a href="./tutorial_v2.html">Туториал v2</a>
-          <a href="./sponsors.html">Спонсоры</a>
-        </nav>
-      </div>
-    </header>
 
-    <main class="b-main">
-      <div class="container">
-        <section class="hero">
-          <img class="logo" src="./assets/logo.png" alt="logo" />
-          <h1>Мини‑кабинет Web3</h1>
-          <p>Подключите кошелёк, проверьте сеть и баланс. Подпишите сообщение для подтверждения владения адресом.</p>
-          <div class="kv">
-            <span class="key">Сеть:</span><span class="val" id="netHuman">—</span>
-            <span class="key">Адрес:</span><span class="val" id="addrHuman">—</span>
-          </div>
-          <div class="hero-cta">
-            <button id="connectBtnHero" class="btn btn-lg">Connect Wallet</button>
-            <button id="btnRefresh" class="btn btn-lg">Обновить баланс</button>
-            <button id="btnSignHero" class="btn btn-lg">Подписать</button>
-          </div>
-          <div id="heroOut" class="out" style="display:none"></div>
-        </section>
+<main class="b-main">
+<div class="container">
+<section class="hero">
+<h1>Мини‑кабинет Web3</h1>
+<p>HTTPS обязателен (GitHub Pages/Netlify). Подключите MetaMask/EVM‑кошелёк, проверьте сеть и баланс, подпишите сообщение.</p>
+<div class="kv">
+<span class="key">Сеть:</span><span class="val" id="netHuman">—</span>
+<span class="key">Адрес:</span><span class="val" id="addrHuman">—</span>
+</div>
+<div class="toolbar" style="justify-content:center;margin-top:8px">
+<button id="connectBtnHero" class="btn btn-lg">Connect Wallet</button>
+<button id="btnRefresh" class="btn btn-lg">Обновить баланс</button>
+<button id="btnSignHero" class="btn btn-lg">Подписать сообщение</button>
+<button id="btnDisconnect" class="btn btn-lg">Disconnect</button>
+</div>
+<div id="heroOut" class="out" style="display:none"></div>
+</section>
 
-        <section class="cards">
-          <div class="card">
-            <h3>Руководство</h3>
-            <p>Краткий обзор, как пользоваться демо‑кабинетом и что тут можно посмотреть.</p>
-            <a class="btn" href="./guide.html">Открыть</a>
-          </div>
-          <div class="card">
-            <h3>Туториал</h3>
-            <p>Подключение кошелька, смена сети, проверка адреса, сохранение в браузере.</p>
-            <a class="btn" href="./tutorial.html">Открыть</a>
-          </div>
-          <div class="card">
-            <h3>Спонсоры</h3>
-            <p>Секция партнёров и поддерживающих проекты, логотипы и ссылки.</p>
-            <a class="btn" href="./sponsors.html">Открыть</a>
-          </div>
-        </section>
-      </div>
-    </main>
 
-    <footer class="b-footer">
-      <div class="container">
-        <p>© 2025 Web3 Cabinet Demo. Non‑custodial • On‑chain • Minimal</p>
-      </div>
-    </footer>
-  </div>
+<section class="cards">
+<div class="card"><h3>Руководство</h3><p>Как работает демо‑кабинет и какие есть функции.</p><a class="btn" href="./guide.html">Открыть</a></div>
+<div class="card"><h3>Туториал</h3><p>Подключение, сеть, баланс, подпись, копирование адреса.</p><a class="btn" href="./tutorial.html">Открыть</a></div>
+<div class="card"><h3>Спонсоры</h3><p>Партнёры и поддерживающие проекты.</p><a class="btn" href="./sponsors.html">Открыть</a></div>
+</section>
+</div>
+</main>
+
+
+<footer class="b-footer">
+<div class="container"><p>© 2025 Web3 Cabinet Demo.</p></div>
+</footer>
+</div>
 </body>
 </html>
